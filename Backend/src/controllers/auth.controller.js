@@ -29,7 +29,7 @@ async function userRegisterController(req, res){
         password: hash
     })
 
-    const token = await jwt.sign({
+    const token = jwt.sign({
         id: user._id,
         username: user.username
     }, process.env.JWT_SECRET, {
@@ -64,6 +64,7 @@ async function userLoginController(req, res){
         })
     }
 
+
     const verifyPassword = await bcrypt.compare(password, user.password)
     
     if(!verifyPassword){
@@ -71,7 +72,7 @@ async function userLoginController(req, res){
         message: "Invalid Credentials"
     })
 }
-    const token = await jwt.sign({
+    const token = jwt.sign({
         id: user._id,
         username: user.username
     }, process.env.JWT_SECRET, {
